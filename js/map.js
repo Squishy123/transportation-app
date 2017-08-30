@@ -11,5 +11,4 @@ function initMap() {
   var latlng =  {lat: 43.653226,lng: -79.383184};
   setLocation(null, map, latlng, 8);
   addMarker(geocoder, map, latlng);
-
 }
