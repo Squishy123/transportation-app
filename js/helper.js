@@ -8,39 +8,26 @@
 /**
  * Takes a geocoder object and returns the address in an array of latitude, longitude
  **/
-function codeAddress(geocoder, address) {
-  var latlng = [];
-  geocoder.geocode({
-    'address': address
-  }, function(results, status) {
-    if (status == "OK") {
-      latlng[0] = results[0].geometry.location.lat();
-      latlng[1] = results[0].geometry.location.lng();
-    } else {
-      console.log('Geocode was not successful for the following reason: ' + status);
-    }
-  });
-  return latlng;
+function codeAddress(address) {
+  return getResults("address="+address.replace(" ", "+"));
 }
 
 /**
  * Reverse geocodes an array of latitude, longitude and returns an address
  **/
-function getAddress(geocoder, latlng) {
-  var address = "";
-  geocoder.geocode({
-      'location': latlng
-    },
-    function(results, status) {
-      if (status == "OK") {
-        address = results[0].formatted_address;
-      } else {
-        console.log('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-  return address;
+function getAddress(latlng) {
+  return getResults("latlng=" + latlng.lat + "," + latlng.lng);
 }
 
+function getResults(params) {
+  var key = "&key=AIzaSyCkiU_W3NH-nFOUGc61nU4mR8ZNynURmww"
+  var url = "https://maps.googleapis.com/maps/api/geocode/json?" + params + key;
+  return fetch(url)
+    .then((response) => response.json())
+    .then(function(data) {
+      return data;
+    });
+}
 /**
  * Moves the map to the current location and sets the zoom level
  **/
@@ -49,7 +36,9 @@ function setLocation(geocoder, map, location, zoom) {
   if (typeof location === "string") {
     //Check if geocoder is undefined
     if (geocoder) {
-      map.setCenter(codeAddress(geocoder, location));
+      codeAddress(location).then(function(data) {
+        map.setCenter(data.results[0].geometry.location);
+      });
     } else {
       console.log('Geocode object is undefined');
     }
@@ -64,6 +53,7 @@ function setLocation(geocoder, map, location, zoom) {
     console.log('Zoom is undefined');
   }
 }
+
 /**
  * Adds a marker on a given map at a given location
  **/
