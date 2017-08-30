@@ -19,8 +19,8 @@ function codeAddress(geocoder, address) {
     } else {
       console.log('Geocode was not successful for the following reason: ' + status);
     }
-    return latlng;
   });
+  return latlng;
 }
 
 /**
