@@ -69,7 +69,6 @@ function addMarker(geocoder, map, location) {
   } else {
     var marker = new google.maps.Marker({
       position: location,
-      title: "Home",
       map: map,
       visible: true
     });
