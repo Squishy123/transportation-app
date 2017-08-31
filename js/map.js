@@ -4,8 +4,9 @@
  * By: Christian Wang
  * Version 1.0
  **/
+var geocoder, map, center; // Create new geocoder and map objects
+
 function initMap() {
-  var geocoder, map, center; // Create new geocoder and map objects
   geocoder = new google.maps.Geocoder();
   map = new google.maps.Map(document.getElementById('map'));
   var latlng = {
@@ -38,5 +39,12 @@ function initMap() {
     map.setCenter(center)
     console.log("RESIZING")
   })
+}
 
+//Checks the query and pans towards it
+function submitQuery() {
+  var query = document.getElementById('search').value;
+  codeAddress(query).then(function(data) {
+    map.panTo(data.results[0].geometry.location);
+  });
 }
