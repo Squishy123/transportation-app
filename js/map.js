@@ -4,7 +4,7 @@
  * By: Christian Wang
  * Version 1.0
  **/
-var geocoder, map, center; // Create new geocoder and map objects
+var geocoder, map, transitLayer, center; // Create new geocoder and map objects
 
 function initMap() {
   geocoder = new google.maps.Geocoder();
@@ -14,8 +14,13 @@ function initMap() {
     lng: -79.383184
   };
 
+  //Set home location
   setLocation(null, map, latlng, 8);
   center = map.getCenter();
+
+  //Setup transitLayer
+  var transitLayer = new google.maps.TransitLayer();
+  transitLayer.setMap(map);
 
   //Add marker at home
   codeAddress("34 Bracknell Avenue, Markham, Ontario, Canada, L6C0R3").then(function(data) {
