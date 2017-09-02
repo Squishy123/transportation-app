@@ -11,7 +11,7 @@
 }
 
 .navpane {
-  opacity: 0.75;
+  opacity: 0.9;
 }
 
 .panel {
@@ -30,4 +30,8 @@
   -khtml-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+ul {
+  list-style: none;
 }

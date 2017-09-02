@@ -9,7 +9,7 @@
  * Takes a geocoder object and returns the address in an array of latitude, longitude
  **/
 function codeAddress(address) {
-  return getResults("address="+address.replace(" ", "+"));
+  return getResults("address=" + address.replace(" ", "+"));
 }
 
 /**
@@ -55,22 +55,41 @@ function setLocation(geocoder, map, location, zoom) {
 }
 
 /**
- * Adds a marker on a given map at a given location
+ * Sets a marker on a given map at a given location
  **/
-function addMarker(geocoder, map, location) {
+function setMarker(marker, map, location) {
   //Check if the location is an address or an array of latitude, longitude
   if (typeof location === "string") {
-    var marker = new google.maps.Marker({
-      position: codeAddress(geocoder, location),
-      title: "Home",
-      map: map,
-      visible: true
-    });
+      marker.setPosition(codeAddress(geocoder, location));
+      marker.setMap(map);
   } else {
-    var marker = new google.maps.Marker({
-      position: location,
-      map: map,
-      visible: true
-    });
+      marker.setPosition(location);
+      marker.setMap(map);
   }
+}
+
+/**
+ * Creates a marker on with a given marker paramenters
+ **/
+function createMarker(params) {
+  var marker = new google.maps.Marker({
+    anchorPoint: params.point,
+    animation: params.animation,
+    clickable: params.clickable,
+    crossOnDrag: params.crossOnDrag,
+    cursor: params.cursor,
+    draggable: params.draggable,
+    icon: params.icon,
+    label: params.label,
+    map: params.map,
+    opacity: params.opacity,
+    optimized: params.optimized,
+    place: params.place,
+    position: params.positon,
+    shape: params.shape,
+    title: params.title,
+    visible: params.visible,
+    zIndex: params.zIndex
+  });
+  return marker;
 }

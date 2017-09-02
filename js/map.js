@@ -4,28 +4,109 @@
  * By: Christian Wang
  * Version 1.0
  **/
-var geocoder, map, transitLayer, center; // Create new geocoder and map objects
+var geocoder, map, transitLayer, center, locations; // Create new geocoder and map objects
 
 function initMap() {
   geocoder = new google.maps.Geocoder();
   map = new google.maps.Map(document.getElementById('map'));
-  var latlng = {
-    lat: 43.653226,
-    lng: -79.383184
-  };
 
-  //Set home location
-  setLocation(null, map, latlng, 8);
-  center = map.getCenter();
-
-  //Setup transitLayer
-  var transitLayer = new google.maps.TransitLayer();
-  transitLayer.setMap(map);
-
-  //Add marker at home
-  codeAddress("34 Bracknell Avenue, Markham, Ontario, Canada, L6C0R3").then(function(data) {
-    addMarker(geocoder, map, data.results[0].geometry.location);
+  //Set the location center
+  codeAddress("Toronto").then(function(data) {
+    setLocation(null, map, data.results[0].geometry.location, 14);
+    center = map.getCenter();
   });
+
+
+  locations = [];
+
+  codeAddress("St. Lawrence Market, Toronto").then(function(data) {
+    var loc1 = {
+      name: "St.Lawrence Market",
+      marker: createMarker({
+        map: map,
+        position: data.results[0].geometry.location,
+        animation: google.maps.Animation.DROP
+      }),
+      init: function() {
+        this.marker.title = this.name;
+        setMarker(this.marker, map, data.results[0].geometry.location);
+      }
+    }
+    loc1.init();
+    locations.push(loc1);
+  });
+
+  codeAddress("CN Tower").then(function(data) {
+    var loc2 = {
+      name: "CN Tower",
+      marker: createMarker({
+        map: map,
+        position: data.results[0].geometry.location,
+        animation: google.maps.Animation.DROP
+      }),
+      init: function() {
+        this.marker.title = this.name;
+        setMarker(this.marker, map, data.results[0].geometry.location);
+      }
+    }
+    loc2.init();
+    locations.push(loc2);
+  });
+
+  codeAddress("Nathan Philips Square").then(function(data) {
+    var loc3 = {
+      //addMarker(geocoder, map, data.results[0].geometry.location);var loc1 = {
+      name: "Nathan Philips Square",
+      marker: createMarker({
+        map: map,
+        position: data.results[0].geometry.location,
+        animation: google.maps.Animation.DROP
+      }),
+      init: function() {
+        this.marker.title = this.name;
+        setMarker(this.marker, map, data.results[0].geometry.location);
+      }
+    }
+    loc3.init();
+    locations.push(loc3);
+  });
+
+  codeAddress("Royal Ontario Museum").then(function(data) {
+    var loc4 = {
+      //addMarker(geocoder, map, data.results[0].geometry.location);var loc1 = {
+      name: "Royal Ontario Museum",
+      marker: createMarker({
+        map: map,
+        position: data.results[0].geometry.location,
+        animation: google.maps.Animation.DROP
+      }),
+      init: function() {
+        this.marker.title = this.name;
+        setMarker(this.marker, map, data.results[0].geometry.location);
+      }
+    }
+    loc4.init();
+    locations.push(loc4);
+  });
+
+  codeAddress("Art Gallery Of Ontario").then(function(data) {
+    var loc5 = {
+      //addMarker(geocoder, map, data.results[0].geometry.location);var loc1 = {
+      name: "Art Gallery Of Ontario",
+      marker: createMarker({
+        map: map,
+        position: data.results[0].geometry.location,
+        animation: google.maps.Animation.DROP
+      }),
+      init: function() {
+        this.marker.title = this.name;
+        setMarker(this.marker, map, data.results[0].geometry.location);
+      }
+    }
+    loc5.init();
+    locations.push(loc5);
+  });
+
 
   //TESTING PAN TO
   //If the center has been changed wait 3 seconds and pan towards Toronto
@@ -44,6 +125,12 @@ function initMap() {
     map.setCenter(center)
     console.log("RESIZING")
   })
+}
+
+function openLocation(name) {
+  if(location.name) {
+    map.panTo(location.name.marker.position);
+  }
 }
 
 //Checks the query and pans towards it

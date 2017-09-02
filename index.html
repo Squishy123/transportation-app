@@ -12,7 +12,7 @@
 
 <body>
   <div id="map"></div>
-  <div class="container-fluid">
+  <div class="container-fluid unselectable navpane">
     <div class="row">
       <div class="col-md-4">
         <nav class="navbar navbar-inverse bg-inverse">
@@ -41,7 +41,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <ul data-bind="foreach: array">
-                  <li data-bind="text: $data"></li>
+                  <li><button class="btn btn-warning btn-block btn-md" data-bind="text: $data"></button></li>
                 </ul>
               </div>
             </div>
