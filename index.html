@@ -41,7 +41,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <ul data-bind="foreach: array">
-                  <li><button class="btn btn-warning btn-block btn-md" data-bind="text: $data"></button></li>
+                  <li><button class="btn btn-primary btn-block btn-md" data-bind="text: $data.name, click: $data.onClick"></button></li>
                 </ul>
               </div>
             </div>
@@ -55,14 +55,14 @@
     </div>
   </div>
 
-  <!--Knockout JS App and Dependencies-->
-  <script src="js/knockout-3.4.2.js"></script>
-  <script src="js/app.js"></script>
-
   <!--Google Map API init and Dependencies-->
   <script src="js/helper.js"></script>
   <script src="js/map.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkiU_W3NH-nFOUGc61nU4mR8ZNynURmww&callback=initMap"></script>
+
+  <!--Knockout JS App and Dependencies-->
+  <script src="js/knockout-3.4.2.js"></script>
+  <script src="js/app.js"></script>
 
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/tether.min.js"></script>

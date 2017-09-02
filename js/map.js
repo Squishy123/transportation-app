@@ -12,7 +12,7 @@ function initMap() {
 
   //Set the location center
   codeAddress("Toronto").then(function(data) {
-    setLocation(null, map, data.results[0].geometry.location, 14);
+    setLocation(null, map, data.results[0].geometry.location, 15);
     center = map.getCenter();
   });
 
@@ -127,9 +127,15 @@ function initMap() {
   })
 }
 
-function openLocation(name) {
-  if(location.name) {
-    map.panTo(location.name.marker.position);
+//Pans the map towards the location of given index
+function openLocation(index) {
+  if (locations[index]) {
+    map.panTo(locations[index].marker.position);
+    //Bounce for 5 seconds
+    locations[index].marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+      locations[index].marker.setAnimation(null);
+    }, 5000);
   }
 }
 
