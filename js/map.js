@@ -130,12 +130,12 @@ function initMap() {
 //Pans the map towards the location of given index
 function openLocation(index) {
   if (locations[index]) {
+    locations.forEach(function(e) {
+      e.marker.setAnimation(null);
+    });
     map.panTo(locations[index].marker.position);
     //Bounce for 5 seconds
     locations[index].marker.setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(function() {
-      locations[index].marker.setAnimation(null);
-    }, 5000);
   }
 }
 
