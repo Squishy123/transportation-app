@@ -55,9 +55,9 @@ function setLocation(geocoder, map, location, zoom) {
 }
 
 /**
- * Sets a marker on a given map at a given location
+ * Sets a marker on a given map at a given location and adds a click listener to open an infowindow
  **/
-function setMarker(marker, map, location) {
+function setMarker(marker, map, location, infowindow) {
   //Check if the location is an address or an array of latitude, longitude
   if (typeof location === "string") {
     marker.setPosition(codeAddress(geocoder, location));
@@ -65,6 +65,13 @@ function setMarker(marker, map, location) {
   } else {
     marker.setPosition(location);
     marker.setMap(map);
+  }
+
+  //Check if there is an infowindow being passed
+  if (infowindow) {
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
   }
 }
 

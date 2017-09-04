@@ -27,15 +27,12 @@ function initMap() {
         position: data.results[0].geometry.location,
         animation: google.maps.Animation.DROP
       }),
-      //infowindow: createInfoWindow({
-      //content: "<div id='content'><h1>Hello World!</h1></div>"
-      //}),
+      infowindow: createInfoWindow({
+        content: "<div id='content'><h1>Hello World!</h1></div>"
+      }),
       init: function() {
         this.marker.title = this.name;
-        setMarker(this.marker, map, data.results[0].geometry.location);
-        //this.marker.addListener('click', function() {
-        //  this.infowindow.open(map, this.marker);
-        //});
+        setMarker(this.marker, map, data.results[0].geometry.location, this.infowindow);
       }
     }
     loc1.init();
@@ -50,9 +47,12 @@ function initMap() {
         position: data.results[0].geometry.location,
         animation: google.maps.Animation.DROP
       }),
+      infowindow: createInfoWindow({
+        content: "<div id='content'><h1>Hello World!</h1></div>"
+      }),
       init: function() {
         this.marker.title = this.name;
-        setMarker(this.marker, map, data.results[0].geometry.location);
+        setMarker(this.marker, map, data.results[0].geometry.location, this.infowindow);
       }
     }
     loc2.init();
@@ -68,9 +68,12 @@ function initMap() {
         position: data.results[0].geometry.location,
         animation: google.maps.Animation.DROP
       }),
+      infowindow: createInfoWindow({
+        content: "<div id='content'><h1>Hello World!</h1></div>"
+      }),
       init: function() {
         this.marker.title = this.name;
-        setMarker(this.marker, map, data.results[0].geometry.location);
+        setMarker(this.marker, map, data.results[0].geometry.location, this.infowindow);
       }
     }
     loc3.init();
@@ -86,9 +89,12 @@ function initMap() {
         position: data.results[0].geometry.location,
         animation: google.maps.Animation.DROP
       }),
+      infowindow: createInfoWindow({
+        content: "<div id='content'><h1>Hello World!</h1></div>"
+      }),
       init: function() {
         this.marker.title = this.name;
-        setMarker(this.marker, map, data.results[0].geometry.location);
+        setMarker(this.marker, map, data.results[0].geometry.location, this.infowindow);
       }
     }
     loc4.init();
@@ -104,9 +110,12 @@ function initMap() {
         position: data.results[0].geometry.location,
         animation: google.maps.Animation.DROP
       }),
+      infowindow: createInfoWindow({
+        content: "<div id='content'><h1>Hello World!</h1></div>"
+      }),
       init: function() {
         this.marker.title = this.name;
-        setMarker(this.marker, map, data.results[0].geometry.location);
+        setMarker(this.marker, map, data.results[0].geometry.location, this.infowindow);
       }
     }
     loc5.init();
@@ -134,14 +143,21 @@ function initMap() {
 }
 
 //Pans the map towards the location of given index
-function openLocation(index) {
-  if (locations[index]) {
-    locations.forEach(function(e) {
-      e.marker.setAnimation(null);
-    });
-    map.panTo(locations[index].marker.position);
-    //Bounce for 5 seconds
-    locations[index].marker.setAnimation(google.maps.Animation.BOUNCE);
+function openLocation(query) {
+  //TODO MAKE THIS MORE EFFICIENT ;(
+  for (var i = 0; i < locations.length; i++) {
+    if (locations[i].name === query) {
+      locations.forEach(function(e) {
+        e.marker.setAnimation(null);
+        //Close all the other infowindows
+        e.infowindow.close();
+      });
+      map.panTo(locations[i].marker.position);
+      //Bounce for 5 seconds
+      locations[i].marker.setAnimation(google.maps.Animation.BOUNCE);
+      //Open the infowindow associated with the marker
+      locations[i].infowindow.open(map, locations[i].marker);
+    }
   }
 }
 
