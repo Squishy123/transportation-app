@@ -60,11 +60,11 @@ function setLocation(geocoder, map, location, zoom) {
 function setMarker(marker, map, location) {
   //Check if the location is an address or an array of latitude, longitude
   if (typeof location === "string") {
-      marker.setPosition(codeAddress(geocoder, location));
-      marker.setMap(map);
+    marker.setPosition(codeAddress(geocoder, location));
+    marker.setMap(map);
   } else {
-      marker.setPosition(location);
-      marker.setMap(map);
+    marker.setPosition(location);
+    marker.setMap(map);
   }
 }
 
@@ -92,4 +92,20 @@ function createMarker(params) {
     zIndex: params.zIndex
   });
   return marker;
+}
+
+
+/**
+ * Creates an infowindow on with a given marker paramenters
+ **/
+function createInfoWindow(params) {
+  var infowindow = new google.maps.InfoWindow({
+    content: params.content,
+    disableAutoPan: params.disableAutoPan,
+    maxWidth: params.maxWidth,
+    pixelOffset: params.pixelOffset,
+    position: params.position,
+    zIndex: params.zIndex
+  });
+  return infowindow;
 }

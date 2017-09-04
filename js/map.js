@@ -27,9 +27,15 @@ function initMap() {
         position: data.results[0].geometry.location,
         animation: google.maps.Animation.DROP
       }),
+      //infowindow: createInfoWindow({
+      //content: "<div id='content'><h1>Hello World!</h1></div>"
+      //}),
       init: function() {
         this.marker.title = this.name;
         setMarker(this.marker, map, data.results[0].geometry.location);
+        //this.marker.addListener('click', function() {
+        //  this.infowindow.open(map, this.marker);
+        //});
       }
     }
     loc1.init();
