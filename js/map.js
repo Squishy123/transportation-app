@@ -28,7 +28,7 @@ function initMap() {
         animation: google.maps.Animation.DROP
       }),
       infowindow: createInfoWindow({
-        content: "<div id='content'><h1>Hello World!</h1></div>"
+        content: "<div id='content'><h1>St. Lawrence Market</h1><h3>Spacious market with 100+ vendors, bakers, butchers & artisans, with produce & antiques on weekends.</h3></div>"
       }),
       init: function() {
         this.marker.title = this.name;
@@ -48,7 +48,7 @@ function initMap() {
         animation: google.maps.Animation.DROP
       }),
       infowindow: createInfoWindow({
-        content: "<div id='content'><h1>Hello World!</h1></div>"
+        content: "<div id='content'><h1>CN Tower</h1><h3>The CN Tower is a 553.3 m-high concrete communications and observation tower in downtown Toronto, Ontario, Canada.</h3></div>"
       }),
       init: function() {
         this.marker.title = this.name;
@@ -69,7 +69,7 @@ function initMap() {
         animation: google.maps.Animation.DROP
       }),
       infowindow: createInfoWindow({
-        content: "<div id='content'><h1>Hello World!</h1></div>"
+        content: "<div id='content'><h1>Nathan Philips Square</h1><h3>Nathan Phillips Square is an urban plaza in Toronto, Ontario, Canada. It forms the forecourt to Toronto City Hall.</h3></div>"
       }),
       init: function() {
         this.marker.title = this.name;
@@ -90,7 +90,7 @@ function initMap() {
         animation: google.maps.Animation.DROP
       }),
       infowindow: createInfoWindow({
-        content: "<div id='content'><h1>Hello World!</h1></div>"
+        content: "<div id='content'><h1>Royal Ontario Museum</h1><h3>The Royal Ontario Museum is a museum of art, world culture and natural history in Toronto, Ontario, Canada.</h3></div>"
       }),
       init: function() {
         this.marker.title = this.name;
@@ -111,7 +111,7 @@ function initMap() {
         animation: google.maps.Animation.DROP
       }),
       infowindow: createInfoWindow({
-        content: "<div id='content'><h1>Hello World!</h1></div>"
+        content: "<div id='content'><h1>Art Gallery of Ontario</h1><h3>The Art Gallery of Ontario is an art museum in Toronto, Ontario, Canada. Its collection includes more than 80,000 works spanning the first century to the present day.</h3></div>"
       }),
       init: function() {
         this.marker.title = this.name;
@@ -167,4 +167,17 @@ function submitQuery() {
   codeAddress(query).then(function(data) {
     map.panTo(data.results[0].geometry.location);
   });
+}
+
+//Checks the query and changes the list element
+function submitFilter() {
+  var query = document.getElementById('filter').value;
+  for (var i = 0; i < locations.length; i++) {
+    //Remove the other filtered elements
+    document.getElementById(locations[i].name).classList.remove('btn-danger');
+    if (locations[i].name.includes(query)) {
+      document.getElementById(locations[i].name).classList.add('btn-danger');
+      console.log("matching");
+    }
+  }
 }
